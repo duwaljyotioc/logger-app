@@ -1,22 +1,21 @@
-import {NavLink} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
-import {logDOM} from "@testing-library/react";
+import { useNavigate} from "react-router-dom";
 
 function Login() {
     const useNavigateInstance = useNavigate();
     function handleSubmit() {
-        console.log('handling here')
         fetch('https://63ef222ec59531ccf16982c8.mockapi.io/api/v1/users/')
             .then(responseData => responseData.json())
-            .then(data => {
-                console.log(data)
-                useNavigateInstance('/dashboard');
+            .then(() => {
+                NavigateToDashboard();
             });
+    }
+
+    function NavigateToDashboard () {
+        useNavigateInstance('/dashboard');
     }
 
     return (
         <div>
-            <Link to={'/dashboard'}>Dashboard</Link>
             <div className='container mt-4'>
                 <form className='w-50'>
                     <div className="mb-3">

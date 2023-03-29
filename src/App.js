@@ -7,11 +7,14 @@ import {projectActions} from "./redux_store/project_slice";
 import data from "./data";
 import {useDispatch} from "react-redux";
 import ProjectDetail from "./pages/projects/project-detail";
+import {userActions} from "./redux_store/userSlice";
 
 function App() {
   const dispatch = useDispatch();
   const setProjects = () => dispatch(projectActions.setProjects({projects: data.projects}))
+  const setUsers = () =>    dispatch(userActions.setUsers({users: data.users}))
   setProjects();
+  setUsers();
 
   return (
     // todo segragate a separate route file for the following chunk.

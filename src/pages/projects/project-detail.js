@@ -31,11 +31,35 @@ function ProjectDetail() {
           <h4 className='p-lg-4'>Issues</h4>
 
           <ul className="list-group">
-            {
-              currentProject.issues.map((singleIssue) => (
-                <li className="list-group-item" key={singleIssue.id}>{singleIssue.title}</li>
-              ))
-            }
+            <table className="table">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Assignee</th>
+              </tr>
+              </thead>
+              <tbody>
+              {
+                currentProject.issues.map((singleIssue) => (
+                  <tr key={singleIssue.id}>
+                    <th scope="row">{singleIssue.id}</th>
+                    <td>{singleIssue.title}</td>
+                    <td>
+                      {
+                        singleIssue.assignees.map((singleStack, stackIndex) => {
+                          // todo get computed value here
+                          return (
+                            <span key={stackIndex}>{stackIndex === 0 ? singleStack.name : ', ' + singleStack.name}</span>
+                          )
+                        })
+                      }
+                    </td>
+                  </tr>
+                ))
+              }
+              </tbody>
+            </table>
           </ul>
         </div>
 

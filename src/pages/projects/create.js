@@ -1,36 +1,33 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import '../../App.css';
 import './create.scss';
 import {useState} from "react";
-import {useDispatch, useSelector, useStore} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Select from 'react-select'
-import {setUsersAction} from "../../store/actions";
+import {projectActions} from "../../redux_store/project_slice";
 
 function CreateProject() {
+    const projects = useSelector(state => state.projects.projects)
+    const navigateInstance = useNavigate();
+    const dispatch = useDispatch();
     const [projectName, setName] = useState('');
     const [projectDescription, setDescription] = useState('');
     const [selectedAssignees, setSelectedAssignees] = useState('');
     const [selectedProjectManagers, setSelectedProjectManagers] = useState('');
-    // const projects = useSelector(state => state.getProjectList);
-    const useDispatchInstance = useDispatch();
-    const assignees = [
-        {value: '1', label: 'Jyoti Duwal'},
-        {value: '2', label: 'Tapan BK'},
-        {value: '3', label: 'Sabi'}
-    ];
-
-    useDispatchInstance(setUsersAction(assignees))
-
     const storeAssignees = useSelector(state => state.users.users);
 
-    const projectManagers = [
-        {value: '4', label: 'Sonam Singh'},
-        {value: '5', label: 'Bibek'},
-        {value: '6', label: 'Sagar'}
-    ]
-
     function handleSubmit() {
-        console.log('handles submit', selectedProjectManagers,)
+        const latestProject = projects[(projects.length - 1)];
+        const project = {
+            id: latestProject.id + 1,
+            name: projectName,
+            description: projectDescription,
+            stacks: [],
+            assignees: selectedAssignees,
+            project_manager: 'test',
+        }
+        dispatch(projectActions.addNewProject({project}))
+        navigateInstance('/dashboard');
     }
 
     function handleChange(selectedUsers) {
@@ -51,7 +48,8 @@ function CreateProject() {
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Project Name</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                           placeholder="Enter Name" value={projectName} onChange={(e) => setName(e.target.value)}/>
+                           placeholder="Enter Name" value={projectName}
+                           onChange={(e) => setName(e.target.value)}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Project Description</label>
@@ -66,7 +64,7 @@ function CreateProject() {
 
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Project Managers</label>
-                    <Select options={projectManagers} isMulti onChange={handleProjectManagerChange}/>
+                    <Select options={storeAssignees} isMulti onChange={handleProjectManagerChange}/>
                 </div>
 
                 <div className='d-flex gap-1-rem mt-3'>

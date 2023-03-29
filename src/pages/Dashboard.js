@@ -1,7 +1,6 @@
 import {Link, useNavigate} from "react-router-dom";
 import './Dashboard.css';
 import {useSelector} from "react-redux";
-import login from "./Login";
 
 function Dashboard() {
   const projects = useSelector(state => state.projects.projects)
@@ -31,11 +30,22 @@ function Dashboard() {
         {
           projects.map((singleProject, index) => {
             return (
-              <tr key={singleProject.id} role='button' onClick={event => rowClickHandler(singleProject)}>
-                <th scope="row">{index + 1}</th>
-                <td>{singleProject.name}</td>
+              <tr key={singleProject.id} role='button'
+                  onClick={event => rowClickHandler(singleProject)}>
+                <th scope="row">{singleProject.id}</th>
+                <td className='text-capitalize'>{singleProject.name}</td>
                 <td>
-
+                  {
+                    singleProject.stacks.map((singleStack, stackIndex) => {
+                      // todo get computed value here
+                      return (
+                        <span key={stackIndex}>
+                          {stackIndex === 0 ? singleStack : ', ' + singleStack}
+                        </span>
+                      )
+                    })
+                  }
+                  {singleProject.stacks.length === 0 && '-'}
                 </td>
                 <td>{singleProject.project_manager}</td>
                 <td>

@@ -5,6 +5,7 @@ const projectSlice = createSlice({
   initialState: {
     projects: [],
     currentProject: {},
+    stacksAvailable: []
   },
   reducers: {
     setProjects: (state, action) => {
@@ -12,6 +13,9 @@ const projectSlice = createSlice({
     },
     getProject: (state, action) => {
       state.currentProject = state.projects.find(singleProject => singleProject.id === action.payload.id)
+    },
+    addNewProject: (state, payloadAction) => {
+      state.projects = [...state.projects, payloadAction.payload.project]
     }
   }
 })

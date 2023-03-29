@@ -41,3 +41,7 @@
 .gap-1-rem {
   gap: 1rem;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

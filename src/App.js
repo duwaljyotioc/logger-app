@@ -3,21 +3,32 @@ import {Route, Routes} from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/projects/create";
+import {projectActions} from "./redux_store/project_slice";
+import data from "./data";
+import {useDispatch} from "react-redux";
+import ProjectDetail from "./pages/projects/project-detail";
 
 function App() {
-    return (
-        // todo segragate a separate route file for the following chunk.
-        <Routes>
-            <Route path='/login' element={<Login/>}>
-            </Route>
+  const dispatch = useDispatch();
+  const setProjects = () => dispatch(projectActions.setProjects({projects: data.projects}))
+  setProjects();
 
-            <Route path='/dashboard' element={<Dashboard/>}>
-            </Route>
+  return (
+    // todo segragate a separate route file for the following chunk.
+    <Routes>
+      <Route path='/login' element={<Login/>}>
+      </Route>
 
-            <Route path='/create-project' element={<CreateProject/>}>
-            </Route>
-        </Routes>
-    );
+      <Route path='/dashboard' element={<Dashboard/>}>
+      </Route>
+
+      <Route path='/create-project' element={<CreateProject/>}>
+      </Route>
+
+      <Route path='/projects/:projectId' element={<ProjectDetail/>}>
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;

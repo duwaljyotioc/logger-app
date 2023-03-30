@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/projects/create";
@@ -8,13 +8,19 @@ import data from "./data";
 import {useDispatch} from "react-redux";
 import ProjectDetail from "./pages/projects/project-detail";
 import {userActions} from "./redux_store/userSlice";
+import {useEffect} from "react";
 
 function App() {
+  const navigateInstance = useNavigate();
   const dispatch = useDispatch();
   const setProjects = () => dispatch(projectActions.setProjects({projects: data.projects}))
   const setUsers = () =>    dispatch(userActions.setUsers({users: data.users}))
   setProjects();
   setUsers();
+
+  const navigateToPagesDynamically = () => navigateInstance('/login')
+
+  useEffect(() => navigateToPagesDynamically(), [])
 
   return (
     // todo segragate a separate route file for the following chunk.

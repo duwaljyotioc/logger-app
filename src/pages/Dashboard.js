@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 function Dashboard() {
   const projects = useSelector(state => state.projects.projects)
   const navigateInstance = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const rowClickHandler = (project) => navigateInstance(`/projects/` + project.id);
 
   let testData = [];
@@ -30,7 +30,7 @@ function Dashboard() {
     );
   } else {
     return (
-      <div className='container'>
+      <div className='container' data-testid='dashboard-element'>
         <div className="d-flex justify-content-end gap-1-rem">
           <Link to={'/create-project'} className="btn btn-primary my-2">Create Project</Link>
           <Link to={'/login'} className={'btn btn-warning my-2 ml-3'}>Log Out</Link>

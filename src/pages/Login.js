@@ -16,7 +16,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div data-testid='login-1'>
       <div className='container mt-4 d-flex justify-content-center'>
         <form className='w-50'>
           <div className="mb-3">
@@ -34,7 +34,9 @@ function Login() {
             <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
             <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
           </div>
-          <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+          <button type="button" className="btn btn-primary" onClick={handleSubmit} data-testid='submit-btn'>
+            Submit
+          </button>
         </form>
 
       </div>

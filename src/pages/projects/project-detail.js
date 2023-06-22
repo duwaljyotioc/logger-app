@@ -10,13 +10,16 @@ function ProjectDetail() {
   const getProjectDetail = () => dispatch(projectActions.getProject({id: currentProjectId}))
 
   getProjectDetail();
-  const currentProject = useSelector(state => state.projects.currentProject)
+  const currentProject = useSelector(state => state.projects?.currentProject)
   if (!currentProject) {
-    return <div>...</div>
+    return <div data-testid="project-detail-page-test-id">
+      Project Detail Page
+    </div>
   }
 
   return (
-    <div className='container'>
+    <div className='container' data-testid="project-detail-page-test-id">
+      <h2>Project Detail Page</h2>
       <div className="d-flex justify-content-end gap-1-rem">
         <Link to={'/dashboard'} className="btn btn-primary my-2">Back to Projects</Link>
 

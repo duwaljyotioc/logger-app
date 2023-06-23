@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
 function Dashboard() {
-  const projects = useSelector(state => state.projects.projects)
+  const projects = useSelector(state => state.projects?.projects)
   const navigateInstance = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const rowClickHandler = (project) => navigateInstance(`/projects/` + project.id);
@@ -24,13 +24,15 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className='container mt-5'>
+      <div className='container mt-5' data-testid='dashboard-element'>
+        <h4 className='mb-4'>Dashboard</h4>
         <div>Loading ...</div>
       </div>
     );
   } else {
     return (
       <div className='container' data-testid='dashboard-element'>
+        <h4 className='m-4'>Dashboard</h4>
         <div className="d-flex justify-content-end gap-1-rem">
           <Link to={'/create-project'} className="btn btn-primary my-2">Create Project</Link>
           <Link to={'/login'} className={'btn btn-warning my-2 ml-3'}>Log Out</Link>
@@ -49,7 +51,7 @@ function Dashboard() {
           </thead>
           <tbody>
           {
-            projects.map((singleProject, index) => {
+            projects?.map((singleProject, index) => {
               return (
                 <tr key={singleProject.id} role='button'
                     onClick={event => rowClickHandler(singleProject)}>

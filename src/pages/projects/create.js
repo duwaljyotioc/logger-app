@@ -7,7 +7,7 @@ import Select from 'react-select'
 import {projectActions} from "../../redux_store/project_slice";
 
 function CreateProject() {
-    const projects = useSelector(state => state.projects.projects)
+    const projects = useSelector(state => state.projects?.projects)
     const navigateInstance = useNavigate();
     const dispatch = useDispatch();
     const [projectName, setName] = useState('');
@@ -39,11 +39,15 @@ function CreateProject() {
     }
 
     if (!storeAssignees) {
-        return 'Loading';
+        return (
+          <div data-testid='create-project-test-id'>
+              Loading
+          </div>
+        );
     }
 
     return (
-        <div className='d-flex justify-content-center mt-5 create-project'>
+        <div className='d-flex justify-content-center mt-5 create-project' data-testid='create-project-test-id'>
             <form className='w-50'>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Project Name</label>

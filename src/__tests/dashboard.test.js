@@ -46,3 +46,25 @@ test('Dashboard component should show text', async () => {
   const dashboardElement = screen.getByTestId('dashboard-element');
   expect(dashboardElement).toHaveTextContent('Dashboard')
 });
+
+test('Dashboard component should use effect', async () => {
+  const fakeData = { message: 'Hello, World!' };
+  jest.spyOn(global, 'fetch').mockResolvedValue({
+    json: jest.fn().mockResolvedValue(fakeData),
+  });
+  let store;
+  const mockStore = configureStore();
+
+  store = mockStore(fakeData);
+  const history = createMemoryHistory({ initialEntries: ['/dashboard'] });
+
+  render(
+    <Provider store={store}>
+      <Router location={history.location} navigator={history}>
+        <Dashboard/>
+      </Router>
+    </Provider>
+  );
+
+  await screen.findByText('Project Manager');
+});

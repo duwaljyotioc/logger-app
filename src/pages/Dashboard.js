@@ -33,6 +33,7 @@ function Dashboard() {
     return (
       <div className='container' data-testid='dashboard-element'>
         <h4 className='m-4'>Dashboard</h4>
+        <h4 className='m-4'>Data Loaded</h4>
         <div className="d-flex justify-content-end gap-1-rem">
           <Link to={'/create-project'} className="btn btn-primary my-2">Create Project</Link>
           <Link to={'/login'} className={'btn btn-warning my-2 ml-3'}>Log Out</Link>
